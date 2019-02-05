@@ -3,11 +3,15 @@ module Cubical.Codata.Conat.Base where
 
 open import Cubical.Core.Everything
 
-data Pred (A : Set) : Set where
-  pzero : Pred A
-  psuc  : A → Pred A
+open import Cubical.Data.Sum
+open import Cubical.Data.Unit
 
-record Conat : Set where
+record Conat : Set
+Prev = Unit ⊎ Conat
+record Conat where
   coinductive
   constructor conat
-  field prev : Pred Conat
+  field prev : Prev
+
+pattern zero  = inl tt
+pattern suc n = inr n
