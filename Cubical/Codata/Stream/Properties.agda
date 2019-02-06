@@ -66,11 +66,11 @@ module Equality≅Bisimulation where
 
   misib : {A : Set} → {x y : Stream A} → x ≡ y → x ≈ y
   ≈head (misib p) = λ i → head (p i)
-  ≈tail (misib p) = misib (λ i → tail (p i))
+  ≈tail (misib p) = misib (cong tail p)
 
   iso1 : {A : Set} → {x y : Stream A} → (p : x ≡ y) → bisim (misib p) ≡ p
   head (iso1 p i j) = head (p j)
-  tail (iso1 p i j) = iso1 (λ i → tail (p i)) i j
+  tail (iso1 p i j) = iso1 (cong tail p) i j
 
   iso2 : {A : Set} → {x y : Stream A} → (p : x ≈ y) → misib (bisim p) ≡ p
   ≈head (iso2 p i) = ≈head p
